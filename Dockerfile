@@ -3,7 +3,5 @@ FROM abernix/meteord:base
 RUN echo "deb http://http.debian.net/debian jessie-backports main" > /etc/apt/sources.list.d/jessie-backports.list
 RUN apt-get update
 RUN apt-get install curl -y
-RUN apt-get install python3-pip -y
-RUN ln -s /usr/bin/pip /usr/bin/pip3:q
-
-RUN curl https://21.co | sh
+# Workaround for "pip3 not found" error in jessie
+RUN curl https://21.co | sed 's/pip3 /pip /g' | sh
